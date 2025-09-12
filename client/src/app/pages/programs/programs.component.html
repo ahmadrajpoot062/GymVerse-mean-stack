@@ -1,0 +1,307 @@
+<div class="min-h-screen bg-gray-50">
+  <!-- Hero Section -->
+  <section class="bg-gradient-primary text-white py-32 relative overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center" 
+         style="background-image: url('https://images.unsplash.com/photo-1583500178690-f7d24c27fa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-red-900/70 to-black/90"></div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10" [@fadeInUp]>
+      <div class="mb-8">
+        <span class="inline-block bg-red-600/20 text-red-400 px-6 py-3 rounded-full text-sm font-bold backdrop-blur-sm border border-red-500/30">
+          🏆 PROVEN PROGRAMS
+        </span>
+      </div>
+      <h1 class="text-6xl md:text-7xl font-heading font-black mb-8 leading-tight text-white">
+        BEAST MODE<br>
+        <span class="text-red-400">PROGRAMS</span>
+      </h1>
+      <p class="text-2xl max-w-4xl mx-auto opacity-90 leading-relaxed text-white">
+        Elite training protocols designed by champions to build legendary physiques and unbreakable mental strength
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="py-8 bg-white shadow-sm">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap gap-4 items-center justify-between" [@slideInUp]>
+        <!-- Type Filter -->
+        <div class="flex flex-wrap gap-2">
+          <button 
+            *ngFor="let type of programTypes"
+            (click)="setActiveType(type)"
+            [class]="getTypeButtonClass(type)"
+            class="px-4 py-2 rounded-full text-sm font-medium transition-all">
+            {{ type }}
+          </button>
+        </div>
+
+        <!-- Additional Filters -->
+        <div class="flex items-center gap-4">
+          <select 
+            [(ngModel)]="selectedLevel"
+            (change)="filterPrograms()"
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <option value="All">All Levels</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+
+          <!-- Price Range -->
+          <select 
+            [(ngModel)]="selectedPriceRange"
+            (change)="filterPrograms()"
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <option value="All">All Prices</option>
+            <option value="Free">Free</option>
+            <option value="0-50">$0 - $50</option>
+            <option value="50-100">$50 - $100</option>
+            <option value="100+">$100+</option>
+          </select>
+
+          <!-- Search -->
+          <div class="relative">
+            <input 
+              type="text"
+              placeholder="Search programs..."
+              [(ngModel)]="searchTerm"
+              (input)="filterPrograms()"
+              class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent w-64">
+            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Grid -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+        <div 
+          *ngFor="let program of filteredPrograms; let i = index"
+          class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer"
+          (click)="selectProgram(program)"
+          [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+          
+          <!-- Program Image -->
+          <div class="relative overflow-hidden h-48">
+            <img 
+              [src]="program.image" 
+              [alt]="program.title"
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+              <div class="absolute bottom-4 left-4 right-4 text-white">
+                <div class="flex items-center justify-between">
+                  <span [class]="getLevelBadgeClass(program.level)" class="px-3 py-1 rounded-full text-xs font-medium">
+                    {{ program.level }}
+                  </span>
+                  <span class="bg-white/90 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
+                    {{ program.price === 0 ? 'Free' : '$' + program.price }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Duration Badge -->
+            <div class="absolute top-3 right-3">
+              <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                {{ program.duration }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Program Content -->
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors">
+                {{ program.title }}
+              </h3>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span class="text-sm text-gray-600">{{ program.rating }}</span>
+              </div>
+            </div>
+
+            <p class="text-gray-600 mb-4 line-clamp-2">{{ program.description }}</p>
+
+            <!-- Program Type -->
+            <div class="flex items-center mb-4">
+              <span [class]="getTypeBadgeClass(program.type)" class="px-3 py-1 rounded-full text-xs font-medium mr-3">
+                {{ program.type }}
+              </span>
+              <span class="text-sm text-gray-500">{{ program.enrolledCount }} enrolled</span>
+            </div>
+
+            <!-- Trainer Info -->
+            <div class="flex items-center mb-4">
+              <img 
+                [src]="program.trainer.avatar" 
+                [alt]="program.trainer.name"
+                class="w-10 h-10 rounded-full mr-3">
+              <div>
+                <div class="text-sm font-medium text-gray-900">{{ program.trainer.name }}</div>
+                <div class="text-xs text-gray-500">{{ program.trainer.specialization }}</div>
+              </div>
+            </div>
+
+            <!-- Features -->
+            <div class="mb-4">
+              <div class="flex flex-wrap gap-1">
+                <span *ngFor="let feature of program.features.slice(0, 3)" 
+                      class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
+                  {{ feature }}
+                </span>
+                <span *ngIf="program.features.length > 3" 
+                      class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
+                  +{{ program.features.length - 3 }} more
+                </span>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <button 
+              (click)="enrollProgram(program, $event)"
+              class="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors">
+              {{ program.price === 0 ? 'Start Free' : 'Enroll Now' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div *ngIf="filteredPrograms.length === 0" class="text-center py-16" [@fadeInUp]>
+        <svg class="w-24 h-24 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-600 mb-2">No Programs Found</h3>
+        <p class="text-gray-500">Try adjusting your filters or search terms</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Program -->
+  <section class="py-20 bg-white" *ngIf="featuredProgram">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16" [@fadeInUp]>
+        <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Featured Program</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          This month's most popular training program
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center" [@slideInUp]>
+          <!-- Program Image -->
+          <div class="relative">
+            <img 
+              [src]="featuredProgram.image" 
+              [alt]="featuredProgram.title"
+              class="w-full h-96 object-cover rounded-lg shadow-xl">
+          
+            <!-- Play Button for Preview -->
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg cursor-pointer hover:bg-black/40 transition-colors"
+                 (click)="previewProgram(featuredProgram)">
+              <div class="bg-white/90 rounded-full p-4 hover:bg-white transition-colors">
+                <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 5v10l8-5z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Program Details -->
+          <div>
+            <div class="flex items-center mb-4">
+              <span [class]="getLevelBadgeClass(featuredProgram.level)" class="px-3 py-1 rounded-full text-sm font-medium mr-4">
+                {{ featuredProgram.level }}
+              </span>
+              <span [class]="getTypeBadgeClass(featuredProgram.type)" class="px-3 py-1 rounded-full text-sm font-medium">
+                {{ featuredProgram.type }}
+              </span>
+            </div>
+
+            <h3 class="text-3xl font-bold text-gray-900 mb-4">{{ featuredProgram.title }}</h3>
+            <p class="text-lg text-gray-600 mb-6">{{ featuredProgram.description }}</p>
+
+            <!-- Program Stats -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+              <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-red-600">{{ featuredProgram.duration }}</div>
+                <div class="text-sm text-gray-500">Duration</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-red-600">{{ featuredProgram.rating }}</div>
+                <div class="text-sm text-gray-500">Rating</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-red-600">{{ featuredProgram.enrolledCount }}</div>
+                <div class="text-sm text-gray-500">Enrolled</div>
+              </div>
+            </div>
+
+            <!-- Trainer Info -->
+            <div class="flex items-center mb-6">
+              <img 
+                [src]="featuredProgram.trainer.avatar" 
+                [alt]="featuredProgram.trainer.name"
+                class="w-12 h-12 rounded-full mr-4">
+              <div>
+                <div class="font-medium text-gray-900">{{ featuredProgram.trainer.name }}</div>
+                <div class="text-sm text-gray-500">{{ featuredProgram.trainer.specialization }}</div>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-900 mb-3">What's Included:</h4>
+              <ul class="space-y-2">
+                <li *ngFor="let feature of featuredProgram.features" class="flex items-center">
+                  <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-600">{{ feature }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- CTA Button -->
+            <button 
+              (click)="enrollProgram(featuredProgram, $event)"
+              class="bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-red-700 transition-colors">
+              {{ featuredProgram.price === 0 ? 'Start Free Program' : 'Enroll for $' + featuredProgram.price }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-red-600 text-white">
+    <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+      <h2 class="text-4xl font-heading font-bold mb-6">Ready to Start Your Transformation?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90 text-white">
+        Join thousands of members who have achieved their fitness goals with our expert programs
+      </p>
+      <div class="space-x-4">
+        <a routerLink="/auth/register" 
+           class="bg-white text-red-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-block">
+          Get Started Free
+        </a>
+        <a routerLink="/trainers" 
+           class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-red-600 transition-colors inline-block">
+          Find a Trainer
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

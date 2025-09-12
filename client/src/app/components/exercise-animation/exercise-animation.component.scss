@@ -1,0 +1,54 @@
+.pushup-animation {
+  animation: pushupMovement 2s infinite ease-in-out;
+}
+
+.squat-animation {
+  animation: squatMovement 2s infinite ease-in-out;
+}
+
+.cardio-animation {
+  animation: cardioMovement 1s infinite ease-in-out;
+}
+
+.strength-arms {
+  animation: strengthArms 2s infinite ease-in-out;
+}
+
+.cardio-legs {
+  animation: cardioLegs 1s infinite ease-in-out;
+}
+
+.equipment-animation {
+  animation: equipmentMove 2s infinite ease-in-out;
+}
+
+@keyframes pushupMovement {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@keyframes squatMovement {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.9) translateY(5px); }
+}
+
+@keyframes cardioMovement {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+}
+
+@keyframes strengthArms {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@keyframes cardioLegs {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+@keyframes equipmentMove {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}

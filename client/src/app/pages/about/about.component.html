@@ -1,0 +1,200 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-20">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h1 class="text-6xl md:text-7xl font-heading font-black mb-8 leading-tight text-white">
+                About<br>
+                <span class="text-red-400">GymVerse</span>
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90 text-white">
+                Empowering fitness journeys through cutting-edge technology and world-class training expertise
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div [@slideInLeft]>
+                    <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Our Mission</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        To revolutionize the fitness industry by creating an inclusive platform that connects
+                        fitness enthusiasts with expert trainers, providing personalized training programs
+                        and comprehensive wellness solutions.
+                    </p>
+                    <p class="text-lg text-gray-600">
+                        We believe that everyone deserves access to professional fitness guidance,
+                        regardless of their location, experience level, or budget constraints.
+                    </p>
+                </div>
+                <div class="text-center" [@slideInRight]>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop"
+                            alt="Gym Mission" class="rounded-lg shadow-xl w-full h-96 object-cover">
+                        <div class="absolute inset-0 bg-red-600 bg-opacity-20 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="text-center order-last lg:order-first" [@slideInLeft]>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop"
+                            alt="Gym Vision" class="rounded-lg shadow-xl w-full h-96 object-cover">
+                        <div class="absolute inset-0 bg-red-600 bg-opacity-20 rounded-lg"></div>
+                    </div>
+                </div>
+                <div [@slideInRight]>
+                    <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Our Vision</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        To become the world's leading digital fitness ecosystem, where technology
+                        meets human expertise to create transformative wellness experiences.
+                    </p>
+                    <p class="text-lg text-gray-600">
+                        We envision a future where fitness is accessible, engaging, and effective
+                        for people of all backgrounds, helping millions achieve their health and
+                        wellness goals.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Our Core Values</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    The principles that guide everything we do at GymVerse
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+                <div *ngFor="let value of values; let i = index"
+                    class="bg-gray-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow"
+                    [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i [class]="value.icon + ' text-red-600 text-2xl'"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900">{{ value.title }}</h3>
+                    <p class="text-gray-600">{{ value.description }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Our Journey</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Key milestones in the GymVerse evolution
+                </p>
+            </div>
+
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-red-200"></div>
+
+                <div class="space-y-16">
+                    <div *ngFor="let milestone of timeline; let i = index"
+                        [class]="i % 2 === 0 ? 'text-right' : 'text-left'"
+                        [@slideInTimeline]="{ value: '', params: { delay: i * 200 + 'ms' } }">
+                        <div class="relative">
+                            <!-- Timeline Dot -->
+                            <div
+                                class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-red-600 rounded-full border-4 border-white shadow-lg z-10">
+                            </div>
+
+                            <!-- Content -->
+                            <div [class]="i % 2 === 0 ? 'pr-8 lg:pr-16' : 'pl-8 lg:pl-16'">
+                                <div class="bg-white rounded-lg p-6 shadow-lg max-w-md"
+                                    [class]="i % 2 === 0 ? 'ml-auto' : 'mr-auto'">
+                                    <div class="text-red-600 font-bold text-lg mb-2">{{ milestone.year }}</div>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-900">{{ milestone.title }}</h3>
+                                    <p class="text-gray-600">{{ milestone.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Meet Our Team</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    The passionate individuals driving GymVerse forward
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+                <div *ngFor="let member of team; let i = index" class="text-center group"
+                    [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+                    <div class="relative mb-6 inline-block">
+                        <img [src]="member.image" [alt]="member.name"
+                            class="w-48 h-48 rounded-full object-cover mx-auto shadow-lg group-hover:shadow-xl transition-shadow">
+                        <div
+                            class="absolute inset-0 bg-red-600 bg-opacity-0 group-hover:bg-opacity-20 rounded-full transition-all">
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900">{{ member.name }}</h3>
+                    <p class="text-red-600 font-medium mb-3">{{ member.position }}</p>
+                    <p class="text-gray-600 text-sm">{{ member.bio }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-white">GymVerse by the Numbers</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Our impact on the fitness community
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" [@staggerIn]>
+                <div *ngFor="let stat of stats; let i = index" class="text-center"
+                    [@countUp]="{ value: '', params: { delay: i * 200 + 'ms' } }">
+                    <div class="text-5xl font-bold text-red-400 mb-3">{{ stat.value }}</div>
+                    <div class="text-xl text-gray-300">{{ stat.label }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-red-600 text-white">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h2 class="text-4xl font-heading font-bold mb-6">Ready to Join Our Community?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90 text-white">
+                Start your fitness journey with GymVerse today and discover what makes us different
+            </p>
+            <div class="space-x-4">
+                <a routerLink="/auth/register"
+                    class="bg-white text-red-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-block">
+                    Get Started Free
+                </a>
+                <a routerLink="/contact"
+                    class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-red-600 transition-colors inline-block">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

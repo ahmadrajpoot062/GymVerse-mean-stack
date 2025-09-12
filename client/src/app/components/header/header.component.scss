@@ -1,0 +1,99 @@
+.nav-link {
+  @apply text-gray-700 hover:text-red-600 font-medium transition-colors duration-200 relative;
+}
+
+.active-nav-link {
+  @apply text-red-600 font-semibold;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #DC2626, #EF4444);
+    border-radius: 2px;
+    animation: slideIn 0.3s ease-out;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+// Dropdown hover styles
+.group:hover .opacity-0 {
+  opacity: 1;
+}
+
+.group:hover .invisible {
+  visibility: visible;
+}
+
+// Dropdown arrow styling
+.group button svg {
+  transition: transform 0.2s ease-in-out;
+}
+
+.group:hover button svg {
+  transform: rotate(180deg);
+}
+
+// Services dropdown specific styling
+.group button {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #DC2626, #EF4444);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1024px) {
+  .nav-link {
+    @apply text-sm;
+  }
+}
+
+.dropdown-item {
+  @apply flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200;
+}
+
+.active-dropdown-item {
+  @apply bg-red-50 text-red-600 font-medium;
+  
+  svg {
+    color: #DC2626;
+  }
+}
+
+.mobile-nav-link {
+  @apply block py-2 px-4 text-gray-700 hover:text-red-600 hover:bg-gray-50 rounded-lg transition-colors duration-200;
+}
+
+.active-mobile-nav-link {
+  @apply text-red-600 bg-red-50 font-semibold border-l-4 border-red-600;
+}
+
+.relative.open .dropdown-menu {
+  @apply block;
+}

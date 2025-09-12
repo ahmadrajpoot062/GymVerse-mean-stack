@@ -1,0 +1,233 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-20">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h1 class="text-6xl md:text-7xl font-heading font-black mb-8 leading-tight text-white">
+                Membership<br>
+                <span class="text-red-400">Plans</span>
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90 text-white">
+                Choose the perfect plan to start your fitness journey with GymVerse
+            </p>
+        </div>
+    </section>
+
+    <!-- Membership Plans -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Choose Your Plan</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Flexible membership options designed to fit your lifestyle and fitness goals
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto" [@staggerIn]>
+                <div *ngFor="let plan of membershipPlans; let i = index" [class]="getPlanCardClass(plan)"
+                    [@slideInUp]="{ value: '', params: { delay: i * 200 + 'ms' } }">
+
+                    <!-- Popular Badge -->
+                    <div *ngIf="plan.popular" class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                        <span
+                            class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+                            MOST POPULAR
+                        </span>
+                    </div>
+
+                    <div class="p-8">
+                        <!-- Plan Header -->
+                        <div class="text-center mb-8">
+                            <div
+                                [class]="'w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ' + plan.color">
+                                <i [class]="plan.icon + ' text-2xl text-white'"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                            <p class="text-gray-600 mb-4">{{ plan.description }}</p>
+                            <div class="flex items-baseline justify-center">
+                                <span class="text-4xl font-bold text-gray-900">${{ plan.price }}</span>
+                                <span class="text-lg text-gray-500 ml-2">/{{ plan.duration }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Features List -->
+                        <ul class="space-y-4 mb-8">
+                            <li *ngFor="let feature of plan.features" class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600">{{ feature }}</span>
+                            </li>
+                        </ul>
+
+                        <!-- CTA Button -->
+                        <button (click)="selectPlan(plan)" [class]="getButtonClass(plan)"
+                            class="w-full py-4 rounded-lg font-bold text-lg transition-all hover:transform hover:scale-105">
+                            Choose {{ plan.name }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Money Back Guarantee -->
+            <div class="text-center mt-16" [@fadeInUp]>
+                <div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-green-500 mr-4" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-gray-900">30-Day Money-Back Guarantee</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        Not satisfied with your membership? Get a full refund within the first 30 days, no questions
+                        asked.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Comparison -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Compare Plans</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    See what's included in each membership tier
+                </p>
+            </div>
+
+            <div class="overflow-x-auto" [@slideInUp]>
+                <table class="w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider">
+                                Features
+                            </th>
+                            <th *ngFor="let plan of membershipPlans"
+                                class="px-6 py-4 text-center text-sm font-medium text-gray-900 uppercase tracking-wider">
+                                {{ plan.name }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr *ngFor="let comparison of comparisonFeatures; let i = index"
+                            [class]="i % 2 === 0 ? 'bg-white' : 'bg-gray-50'">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {{ comparison.feature }}
+                            </td>
+                            <td *ngFor="let included of comparison.included"
+                                class="px-6 py-4 whitespace-nowrap text-sm text-center">
+                                <span *ngIf="included === true" class="text-green-500">
+                                    <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </span>
+                                <span *ngIf="included === false" class="text-red-500">
+                                    <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </span>
+                                <span *ngIf="typeof included === 'string'" class="text-gray-600">
+                                    {{ included }}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">What Our Members Say</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Real stories from real members
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+                <div *ngFor="let testimonial of testimonials; let i = index" class="bg-white rounded-lg shadow-lg p-8"
+                    [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+                    <div class="flex items-center mb-4">
+                        <img [src]="testimonial.avatar" [alt]="testimonial.name"
+                            class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-900">{{ testimonial.name }}</h4>
+                            <p class="text-sm text-gray-500">{{ testimonial.plan }} Member</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <svg *ngFor="let star of [1,2,3,4,5]" class="w-5 h-5 text-yellow-400" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 italic">"{{ testimonial.review }}"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Everything you need to know about our memberships
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto" [@staggerIn]>
+                <div *ngFor="let faq of faqs; let i = index"
+                    class="border border-gray-200 rounded-lg mb-4 overflow-hidden"
+                    [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+                    <button (click)="toggleFAQ(i)"
+                        class="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors flex justify-between items-center">
+                        <span class="font-medium text-gray-900">{{ faq.question }}</span>
+                        <svg [class]="'w-5 h-5 text-gray-500 transition-transform ' + (faq.open ? 'transform rotate-180' : '')"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div *ngIf="faq.open" class="px-6 py-4 bg-white" [@slideDown]>
+                        <p class="text-gray-600">{{ faq.answer }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-red-600 text-white">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h2 class="text-4xl font-heading font-bold mb-6">Ready to Start Your Fitness Journey?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90 text-white">
+                Join thousands of members who have transformed their lives with GymVerse
+            </p>
+            <div class="space-x-4">
+                <button (click)="startFreeTrial()"
+                    class="bg-white text-red-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-block">
+                    Start Free Trial
+                </button>
+                <a routerLink="/contact"
+                    class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-red-600 transition-colors inline-block">
+                    Contact Sales
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

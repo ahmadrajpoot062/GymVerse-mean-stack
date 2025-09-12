@@ -1,0 +1,293 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-600 to-green-800 text-white py-20">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h1 class="text-6xl md:text-7xl font-heading font-black mb-8 leading-tight text-white">
+                Diet
+                <span class="text-green-300">Plans</span>
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90 text-white">
+                Scientifically designed meal plans to complement your fitness journey and achieve your goals
+            </p>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="py-8 bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap gap-4 items-center justify-between" [@slideInUp]>
+                <!-- Goal Filter -->
+                <div class="flex flex-wrap gap-2">
+                    <button *ngFor="let goal of goals" (click)="setActiveGoal(goal)" [class]="getGoalButtonClass(goal)"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-all">
+                        {{ goal }}
+                    </button>
+                </div>
+
+                <!-- Additional Filters -->
+                <div class="flex items-center gap-4">
+                    <select [(ngModel)]="selectedDifficulty" (change)="filterPlans()"
+                        class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <option value="All">All Difficulties</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Challenging">Challenging</option>
+                    </select>
+
+                    <!-- Calorie Range -->
+                    <select [(ngModel)]="selectedCalorieRange" (change)="filterPlans()"
+                        class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <option value="All">All Calories</option>
+                        <option value="1200-1500">1200-1500 cal</option>
+                        <option value="1500-1800">1500-1800 cal</option>
+                        <option value="1800-2200">1800-2200 cal</option>
+                        <option value="2200+">2200+ cal</option>
+                    </select>
+
+                    <!-- Search -->
+                    <div class="relative">
+                        <input type="text" placeholder="Search diet plans..." [(ngModel)]="searchTerm"
+                            (input)="filterPlans()"
+                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent w-64">
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diet Plans Grid -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+                <div *ngFor="let plan of filteredPlans; let i = index"
+                    class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer"
+                    (click)="selectPlan(plan)" [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+
+                    <!-- Plan Image -->
+                    <div class="relative overflow-hidden h-48">
+                        <img [src]="plan.image" [alt]="plan.title"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <span [class]="getGoalBadgeClass(plan.goal)"
+                                    class="px-3 py-1 rounded-full text-xs font-medium">
+                                    {{ plan.goal }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Calories Badge -->
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-white/90 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ plan.totalCalories }} cal
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Plan Content -->
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors">
+                                {{ plan.title }}
+                            </h3>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                    </path>
+                                </svg>
+                                <span class="text-sm text-gray-600">{{ plan.rating }}</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 mb-4 line-clamp-2">{{ plan.description }}</p>
+
+                        <!-- Macros -->
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <div class="text-center p-2 bg-blue-50 rounded">
+                                <div class="text-sm font-bold text-blue-600">{{ plan.macros.protein }}g</div>
+                                <div class="text-xs text-gray-500">Protein</div>
+                            </div>
+                            <div class="text-center p-2 bg-yellow-50 rounded">
+                                <div class="text-sm font-bold text-yellow-600">{{ plan.macros.carbs }}g</div>
+                                <div class="text-xs text-gray-500">Carbs</div>
+                            </div>
+                            <div class="text-center p-2 bg-purple-50 rounded">
+                                <div class="text-sm font-bold text-purple-600">{{ plan.macros.fat }}g</div>
+                                <div class="text-xs text-gray-500">Fat</div>
+                            </div>
+                        </div>
+
+                        <!-- Nutritionist Info -->
+                        <div class="flex items-center mb-4">
+                            <img [src]="plan.nutritionist.avatar" [alt]="plan.nutritionist.name"
+                                class="w-8 h-8 rounded-full mr-3">
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">{{ plan.nutritionist.name }}</div>
+                                <div class="text-xs text-gray-500">{{ plan.nutritionist.credentials }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>{{ plan.duration }}</span>
+                            <span>{{ plan.followersCount }} following</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div *ngIf="filteredPlans.length === 0" class="text-center py-16" [@fadeInUp]>
+                <svg class="w-24 h-24 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4">
+                    </path>
+                </svg>
+                <h3 class="text-2xl font-bold text-gray-600 mb-2">No Diet Plans Found</h3>
+                <p class="text-gray-500">Try adjusting your filters or search terms</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Meal -->
+    <section class="py-20 bg-white" *ngIf="featuredMeal">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Recipe Spotlight</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Delicious and nutritious meals that fuel your fitness goals
+                </p>
+            </div>
+
+            <div class="max-w-5xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-start" [@slideInUp]>
+                    <!-- Meal Image -->
+                    <div class="relative">
+                        <img [src]="featuredMeal.image" [alt]="featuredMeal.name"
+                            class="w-full h-96 object-cover rounded-lg shadow-xl">
+
+                        <!-- Prep Time Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="bg-white/90 text-gray-900 px-3 py-1 rounded-full text-sm font-medium flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                {{ featuredMeal.prepTime }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Meal Details -->
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">{{ featuredMeal.name }}</h3>
+
+                        <!-- Nutrition Info -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-green-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-green-600">{{ featuredMeal.calories }}</div>
+                                <div class="text-sm text-gray-500">Calories</div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-blue-600">{{ featuredMeal.protein }}g</div>
+                                <div class="text-sm text-gray-500">Protein</div>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-yellow-600">{{ featuredMeal.carbs }}g</div>
+                                <div class="text-sm text-gray-500">Carbs</div>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-purple-600">{{ featuredMeal.fat }}g</div>
+                                <div class="text-sm text-gray-500">Fat</div>
+                            </div>
+                        </div>
+
+                        <!-- Ingredients -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-900 mb-3">Ingredients:</h4>
+                            <ul class="space-y-1">
+                                <li *ngFor="let ingredient of featuredMeal.ingredients"
+                                    class="flex items-center text-gray-600">
+                                    <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    {{ ingredient }}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Instructions -->
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">Instructions:</h4>
+                            <ol class="space-y-3">
+                                <li *ngFor="let instruction of featuredMeal.instructions; let i = index"
+                                    class="flex items-start">
+                                    <span
+                                        class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">
+                                        {{ i + 1 }}
+                                    </span>
+                                    <span class="text-gray-600">{{ instruction }}</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Tips -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Nutrition Tips</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Expert advice to maximize your nutrition and fitness results
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+                <div *ngFor="let tip of nutritionTips; let i = index"
+                    class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
+                    [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <i [class]="tip.icon + ' text-green-600 text-xl'"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ tip.title }}</h3>
+                    <p class="text-gray-600">{{ tip.description }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-green-600 text-white">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h2 class="text-4xl font-heading font-bold mb-6">Ready to Transform Your Nutrition?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90 text-white">
+                Choose a diet plan that aligns with your goals and start fueling your success
+            </p>
+            <div class="space-x-4">
+                <a routerLink="/auth/register"
+                    class="bg-white text-green-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-block">
+                    Start Your Journey
+                </a>
+                <a routerLink="/contact"
+                    class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-green-600 transition-colors inline-block">
+                    Get Nutrition Advice
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

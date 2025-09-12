@@ -1,0 +1,28 @@
+/* Trainers page styles */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+.trainer-card {
+  transition: all 0.3s ease;
+}
+
+.trainer-card:hover {
+  transform: translateY(-5px);
+}
+
+.specialization-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.filter-button {
+  transition: all 0.2s ease;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

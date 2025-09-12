@@ -1,0 +1,240 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-20">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h1 class="text-6xl md:text-7xl font-heading font-black mb-8 leading-tight text-white">
+                Exercise<br>
+                <span class="text-red-400">Plans</span>
+            </h1>
+            <p class="text-xl max-w-2xl mx-auto opacity-90 text-white">
+                Professional workout routines designed to help you achieve your fitness goals
+            </p>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="py-8 bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap gap-4 items-center justify-between" [@slideInUp]>
+                <!-- Category Filter -->
+                <div class="flex flex-wrap gap-2">
+                    <button *ngFor="let category of categories" (click)="setActiveCategory(category)"
+                        [class]="getCategoryButtonClass(category)"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-all">
+                        {{ category }}
+                    </button>
+                </div>
+
+                <!-- Difficulty Filter -->
+                <div class="flex items-center gap-4">
+                    <select [(ngModel)]="selectedDifficulty" (change)="filterPlans()"
+                        class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        <option value="All">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+
+                    <!-- Search -->
+                    <div class="relative">
+                        <input type="text" placeholder="Search plans..." [(ngModel)]="searchTerm"
+                            (input)="filterPlans()"
+                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent w-64">
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercise Plans Grid -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" [@staggerIn]>
+                <div *ngFor="let plan of filteredPlans; let i = index"
+                    class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer"
+                    (click)="selectPlan(plan)" [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+
+                    <!-- Plan Image -->
+                    <div class="relative overflow-hidden h-48">
+                        <img [src]="plan.image" [alt]="plan.title"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <span [class]="getDifficultyBadgeClass(plan.difficulty)"
+                                    class="px-3 py-1 rounded-full text-xs font-medium">
+                                    {{ plan.difficulty }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Duration Badge -->
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-white/90 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ plan.duration }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Plan Content -->
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors">
+                                {{ plan.title }}
+                            </h3>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                    </path>
+                                </svg>
+                                <span class="text-sm text-gray-600">{{ plan.rating }}</span>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-600 mb-4 line-clamp-2">{{ plan.description }}</p>
+
+                        <!-- Trainer Info -->
+                        <div class="flex items-center mb-4">
+                            <img [src]="plan.trainer.avatar" [alt]="plan.trainer.name"
+                                class="w-8 h-8 rounded-full mr-3">
+                            <span class="text-sm text-gray-600">By {{ plan.trainer.name }}</span>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>{{ plan.exercises.length }} exercises</span>
+                            <span>{{ plan.enrolledCount }} enrolled</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div *ngIf="filteredPlans.length === 0" class="text-center py-16" [@fadeInUp]>
+                <svg class="w-24 h-24 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                </svg>
+                <h3 class="text-2xl font-bold text-gray-600 mb-2">No Exercise Plans Found</h3>
+                <p class="text-gray-500">Try adjusting your filters or search terms</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Exercise -->
+    <section class="py-20 bg-white" *ngIf="featuredExercise">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" [@fadeInUp]>
+                <h2 class="text-4xl font-heading font-bold mb-6 text-gray-900">Exercise Spotlight</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Master this essential exercise with proper form and technique
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center" [@slideInUp]>
+                    <!-- Exercise Image/Video -->
+                    <div class="relative">
+                        <img [src]="featuredExercise.image" [alt]="featuredExercise.name"
+                            class="w-full h-96 object-cover rounded-lg shadow-xl">
+
+                        <!-- Play Button Overlay (if video available) -->
+                        <div *ngIf="featuredExercise.videoUrl"
+                            class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg cursor-pointer hover:bg-black/40 transition-colors"
+                            (click)="playExerciseVideo(featuredExercise)">
+                            <div class="bg-white/90 rounded-full p-4 hover:bg-white transition-colors">
+                                <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8 5v10l8-5z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise Details -->
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <span [class]="getDifficultyBadgeClass(featuredExercise.difficulty)"
+                                class="px-3 py-1 rounded-full text-sm font-medium mr-4">
+                                {{ featuredExercise.difficulty }}
+                            </span>
+                            <span class="text-sm text-gray-500">{{ featuredExercise.equipment }}</span>
+                        </div>
+
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">{{ featuredExercise.name }}</h3>
+                        <p class="text-lg text-gray-600 mb-6">{{ featuredExercise.description }}</p>
+
+                        <!-- Exercise Stats -->
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-red-600">{{ featuredExercise.sets }}</div>
+                                <div class="text-sm text-gray-500">Sets</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-red-600">{{ featuredExercise.reps }}</div>
+                                <div class="text-sm text-gray-500">Reps</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-red-600">{{ featuredExercise.rest }}</div>
+                                <div class="text-sm text-gray-500">Rest</div>
+                            </div>
+                        </div>
+
+                        <!-- Target Muscles -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-900 mb-2">Target Muscles:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span *ngFor="let muscle of featuredExercise.muscles"
+                                    class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">
+                                    {{ muscle }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Instructions -->
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">Instructions:</h4>
+                            <ol class="space-y-2">
+                                <li *ngFor="let instruction of featuredExercise.instructions; let i = index"
+                                    class="flex items-start">
+                                    <span
+                                        class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">
+                                        {{ i + 1 }}
+                                    </span>
+                                    <span class="text-gray-600">{{ instruction }}</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-red-600 text-white">
+        <div class="container mx-auto px-4 text-center" [@fadeInUp]>
+            <h2 class="text-4xl font-heading font-bold mb-6">Ready to Start Training?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90 text-white">
+                Choose a plan that matches your fitness level and start your transformation today
+            </p>
+            <div class="space-x-4">
+                <a routerLink="/auth/register"
+                    class="bg-white text-red-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-block">
+                    Get Started Free
+                </a>
+                <a routerLink="/trainers"
+                    class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-red-600 transition-colors inline-block">
+                    Find a Trainer
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

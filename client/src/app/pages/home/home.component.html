@@ -1,0 +1,396 @@
+<div class="min-h-screen">
+  <!-- Background Music Toggle (Fixed Position) -->
+  <div class="fixed top-20 right-4 z-40">
+    <button
+      (click)="toggleMusic()"
+      class="bg-black/70 backdrop-blur-sm text-white p-3 rounded-full shadow-lg hover:bg-black/80 transition-all transform hover:scale-105"
+      [title]="isPlaying ? 'Pause background music' : 'Play background music'">
+      <svg *ngIf="!isPlaying" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293L12 11m3 3l-3-3m-3-3a4.001 4.001 0 017.874.385M15 10h1.586a1 1 0 01.707.293L18 11"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3l6 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h4z"></path>
+      </svg>
+      <svg *ngIf="isPlaying" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18 12h.01M9 12a3 3 0 106 0v6"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3l6 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h4z"></path>
+      </svg>
+    </button>
+    
+    <!-- Music indicator -->
+    <div *ngIf="isPlaying" class="absolute -bottom-2 -right-2">
+      <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-primary text-white py-32 relative overflow-hidden min-h-screen flex items-center">
+    <!-- Background gym image -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+         style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-red-900/60 to-black/80"></div>
+    
+    <div class="container-custom relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Content -->
+        <div class="text-left animate-fade-in">
+          <div class="mb-6">
+            <span class="inline-block bg-red-600/20 text-red-400 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border border-red-500/30">
+              🔥 #1 Fitness Platform
+            </span>
+          </div>
+          <h1 class="text-6xl md:text-7xl font-heading font-black mb-6 leading-tight">
+            <span class="text-white">TRAIN</span><br>
+            <span class="text-red-400">HARD,</span><br>
+            <span class="text-white">LIVE STRONG</span>
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed max-w-lg">
+            Transform your body with elite training programs designed by champion bodybuilders and fitness professionals.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a routerLink="/auth/register" class="btn bg-red-600 text-white hover:bg-red-700 px-8 py-4 text-lg font-bold shadow-xl transform hover:scale-105 transition-all">
+              JOIN NOW
+            </a>
+            <a routerLink="/programs" class="btn border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg font-bold">
+              EXPLORE PROGRAMS
+            </a>
+          </div>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/20">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-red-400">1000+</div>
+              <div class="text-sm text-gray-300">Members</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-red-400">50+</div>
+              <div class="text-sm text-gray-300">Elite Trainers</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-red-400">200+</div>
+              <div class="text-sm text-gray-300">Programs</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Content - Featured Bodybuilder -->
+        <div class="relative animate-fade-in" style="animation-delay: 0.3s;">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                 alt="Professional Bodybuilder" 
+                 class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
+            <div class="absolute -bottom-6 -right-6 bg-red-600 text-white p-4 rounded-xl shadow-xl">
+              <div class="text-2xl font-bold">24/7</div>
+              <div class="text-sm">Support</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Music Control Info -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+        <div class="bg-black/40 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
+          <p class="flex items-center justify-center gap-2 text-sm text-gray-300">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12 6-12 7z"></path>
+            </svg>
+            Background music available - toggle in top right corner
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-24 bg-gray-900 relative">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><g fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;><g fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;><path d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/></g></g></svg>');"></div>
+    </div>
+    
+    <div class="container-custom relative z-10">
+      <div class="text-center mb-20">
+        <div class="inline-block bg-red-600/10 text-red-400 px-6 py-3 rounded-full text-sm font-bold mb-6 border border-red-500/20">
+          WHY CHOOSE GYMVERSE
+        </div>
+        <h2 class="text-5xl font-heading font-black text-white mb-6">
+          ELITE TRAINING<br>
+          <span class="text-red-400">EXPERIENCE</span>
+        </h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          Train with the intensity of champions using proven methods that have built legendary physiques
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Feature 1 - Professional Trainers -->
+        <div class="group relative">
+          <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 hover:border-red-500/50 transition-all duration-300 transform hover:-translate-y-2">
+            <div class="relative mb-6">
+              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                   alt="Professional Trainer" 
+                   class="w-full h-48 object-cover rounded-xl">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
+              <div class="absolute bottom-4 left-4">
+                <div class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                  CERTIFIED PRO
+                </div>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors">
+              Elite Trainers
+            </h3>
+            <p class="text-gray-300 leading-relaxed">
+              Work with IFBB professionals, former Olympians, and certified experts who've transformed thousands of physiques.
+            </p>
+            <div class="mt-6 flex items-center text-red-400 font-medium">
+              <span>Meet Our Pros</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 - Custom Programs -->
+        <div class="group relative">
+          <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 hover:border-red-500/50 transition-all duration-300 transform hover:-translate-y-2">
+            <div class="relative mb-6">
+              <img src="https://images.unsplash.com/photo-1583500178690-f7d24c27fa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                   alt="Custom Workout Plan" 
+                   class="w-full h-48 object-cover rounded-xl">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
+              <div class="absolute bottom-4 left-4">
+                <div class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                  PERSONALIZED
+                </div>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors">
+              Beast Mode Programs
+            </h3>
+            <p class="text-gray-300 leading-relaxed">
+              Scientifically designed training protocols tailored to your goals - from shredding to mass building.
+            </p>
+            <div class="mt-6 flex items-center text-red-400 font-medium">
+              <span>Explore Programs</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 - Progress Tracking -->
+        <div class="group relative">
+          <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 hover:border-red-500/50 transition-all duration-300 transform hover:-translate-y-2">
+            <div class="relative mb-6">
+              <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                   alt="Progress Tracking" 
+                   class="w-full h-48 object-cover rounded-xl">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
+              <div class="absolute bottom-4 left-4">
+                <div class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                  DATA DRIVEN
+                </div>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors">
+              Track Your Gains
+            </h3>
+            <p class="text-gray-300 leading-relaxed">
+              Monitor every rep, set, and transformation with advanced analytics and progress visualization tools.
+            </p>
+            <div class="mt-6 flex items-center text-red-400 font-medium">
+              <span>Start Tracking</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-20 bg-gray-900 text-white">
+    <div class="container-custom">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div class="animate-fade-in">
+          <div class="text-4xl font-bold text-red-400 mb-2">1000+</div>
+          <div class="text-gray-300">Active Members</div>
+        </div>
+        <div class="animate-fade-in" style="animation-delay: 0.1s;">
+          <div class="text-4xl font-bold text-red-400 mb-2">50+</div>
+          <div class="text-gray-300">Expert Trainers</div>
+        </div>
+        <div class="animate-fade-in" style="animation-delay: 0.2s;">
+          <div class="text-4xl font-bold text-red-400 mb-2">200+</div>
+          <div class="text-gray-300">Training Programs</div>
+        </div>
+        <div class="animate-fade-in" style="animation-delay: 0.3s;">
+          <div class="text-4xl font-bold text-red-400 mb-2">24/7</div>
+          <div class="text-gray-300">Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transformation Showcase -->
+  <section class="py-24 bg-white relative overflow-hidden">
+    <div class="container-custom">
+      <div class="text-center mb-20">
+        <div class="inline-block bg-red-50 text-red-600 px-6 py-3 rounded-full text-sm font-bold mb-6">
+          REAL TRANSFORMATIONS
+        </div>
+        <h2 class="text-5xl font-heading font-black text-gray-900 mb-6">
+          INCREDIBLE<br>
+          <span class="text-red-600">RESULTS</span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          See the amazing transformations our members have achieved with dedication and expert guidance
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8 mb-16">
+        <!-- Transformation 1 -->
+        <div class="group bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+          <div class="relative mb-6">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                 alt="Transformation Result" 
+                 class="w-full h-64 object-cover rounded-xl">
+            <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+              6 MONTHS
+            </div>
+          </div>
+          <div class="text-center">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Mike's Journey</h3>
+            <p class="text-gray-600 mb-4">Lost 45 lbs, gained muscle definition</p>
+            <div class="flex justify-center gap-4 text-sm">
+              <div class="bg-red-100 text-red-800 px-3 py-1 rounded-full">-45 lbs</div>
+              <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full">+15% muscle</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transformation 2 -->
+        <div class="group bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+          <div class="relative mb-6">
+            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                 alt="Transformation Result" 
+                 class="w-full h-64 object-cover rounded-xl">
+            <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+              12 MONTHS
+            </div>
+          </div>
+          <div class="text-center">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Sarah's Success</h3>
+            <p class="text-gray-600 mb-4">Complete body transformation</p>
+            <div class="flex justify-center gap-4 text-sm">
+              <div class="bg-red-100 text-red-800 px-3 py-1 rounded-full">-30 lbs</div>
+              <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full">Toned physique</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transformation 3 -->
+        <div class="group bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+          <div class="relative mb-6">
+            <img src="https://images.unsplash.com/photo-1583500178690-f7d24c27fa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                 alt="Transformation Result" 
+                 class="w-full h-64 object-cover rounded-xl">
+            <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+              8 MONTHS
+            </div>
+          </div>
+          <div class="text-center">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">David's Gains</h3>
+            <p class="text-gray-600 mb-4">Massive muscle building success</p>
+            <div class="flex justify-center gap-4 text-sm">
+              <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full">+25 lbs muscle</div>
+              <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Beast mode</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA for Transformations -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Transformation?</h3>
+        <a routerLink="/programs" class="inline-block bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transform hover:scale-105 transition-all shadow-lg">
+          BEGIN YOUR JOURNEY
+        </a>
+      </div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-red-100 rounded-full -translate-y-32 translate-x-32 opacity-20"></div>
+    <div class="absolute bottom-0 left-0 w-48 h-48 bg-red-100 rounded-full translate-y-24 -translate-x-24 opacity-20"></div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-32 relative overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center" 
+         style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-red-900/80 to-black/90"></div>
+    
+    <div class="container-custom text-center relative z-10">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-8">
+          <span class="inline-block bg-red-600/20 text-red-400 px-6 py-3 rounded-full text-sm font-bold backdrop-blur-sm border border-red-500/30">
+            🚀 JOIN THE ELITE
+          </span>
+        </div>
+        <h2 class="text-6xl font-heading font-black text-white mb-8 leading-tight">
+          YOUR <span class="text-red-400">BEAST MODE</span><br>
+          STARTS TODAY
+        </h2>
+        <p class="text-2xl text-gray-200 mb-12 leading-relaxed max-w-3xl mx-auto">
+          Stop making excuses. Start making gains. Join thousands who've already transformed their lives with our proven system.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+          <a routerLink="/programs" class="btn bg-red-600 text-white hover:bg-red-700 px-12 py-5 text-xl font-black shadow-2xl transform hover:scale-105 transition-all">
+            🔥 START TRAINING NOW
+          </a>
+          <a routerLink="/trainers" class="btn border-2 border-white text-white hover:bg-white hover:text-red-600 px-12 py-5 text-xl font-black">
+            💪 MEET YOUR COACH
+          </a>
+        </div>
+
+        <!-- Success Guarantee -->
+        <div class="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-white/20 max-w-2xl mx-auto">
+          <h3 class="text-2xl font-bold text-white mb-4">30-Day Money-Back Guarantee</h3>
+          <p class="text-gray-300 mb-6">
+            Not satisfied with your results? Get your money back, no questions asked. That's how confident we are in our system.
+          </p>
+          <div class="flex items-center justify-center gap-8 text-sm text-gray-400">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              No Long-term Contracts
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Cancel Anytime
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              24/7 Support
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <app-newsletter></app-newsletter>
+
+  <!-- Footer will be here -->
+</div>

@@ -1,0 +1,190 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div class="text-center">
+      <div class="flex justify-center">
+        <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center">
+          <span class="text-white font-bold text-2xl">G</span>
+        </div>
+      </div>
+      <h2 class="mt-6 text-3xl font-heading font-bold text-gray-900">
+        Join GymVerse Today
+      </h2>
+      <p class="mt-2 text-sm text-gray-600">
+        Already have an account? 
+        <a routerLink="/auth/login" class="font-medium text-red-600 hover:text-red-500">
+          Sign in here
+        </a>
+      </p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+      <div class="space-y-4">
+        <div class="form-group">
+          <label for="name" class="form-label">Full Name</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="form-input"
+            [class.border-red-500]="nameControl?.invalid && nameControl?.touched"
+            placeholder="Enter your full name"
+          >
+          <div 
+            *ngIf="nameControl?.invalid && nameControl?.touched" 
+            class="form-error"
+          >
+            <span *ngIf="nameControl?.errors?.['required']">Name is required</span>
+            <span *ngIf="nameControl?.errors?.['minlength']">Name must be at least 2 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-input"
+            [class.border-red-500]="emailControl?.invalid && emailControl?.touched"
+            placeholder="Enter your email"
+          >
+          <div 
+            *ngIf="emailControl?.invalid && emailControl?.touched" 
+            class="form-error"
+          >
+            <span *ngIf="emailControl?.errors?.['required']">Email is required</span>
+            <span *ngIf="emailControl?.errors?.['email']">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              class="form-input pr-10"
+              [class.border-red-500]="passwordControl?.invalid && passwordControl?.touched"
+              placeholder="Create a password"
+            >
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+            >
+              <svg *ngIf="!showPassword" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              <svg *ngIf="showPassword" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+              </svg>
+            </button>
+          </div>
+          <div 
+            *ngIf="passwordControl?.invalid && passwordControl?.touched" 
+            class="form-error"
+          >
+            <span *ngIf="passwordControl?.errors?.['required']">Password is required</span>
+            <span *ngIf="passwordControl?.errors?.['minlength']">Password must be at least 8 characters</span>
+            <span *ngIf="passwordControl?.errors?.['pattern']">Password must contain uppercase, lowercase, number and special character</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            class="form-input"
+            [class.border-red-500]="confirmPasswordControl?.invalid && confirmPasswordControl?.touched"
+            placeholder="Confirm your password"
+          >
+          <div 
+            *ngIf="confirmPasswordControl?.invalid && confirmPasswordControl?.touched" 
+            class="form-error"
+          >
+            <span *ngIf="confirmPasswordControl?.errors?.['required']">Please confirm your password</span>
+            <span *ngIf="confirmPasswordControl?.errors?.['passwordMismatch']">Passwords do not match</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="role" class="form-label">I want to join as</label>
+          <select
+            id="role"
+            formControlName="role"
+            class="form-select"
+          >
+            <option value="user">Fitness Enthusiast</option>
+            <option value="trainer">Personal Trainer</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone Number (Optional)</label>
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            class="form-input"
+            placeholder="Enter your phone number"
+          >
+        </div>
+      </div>
+
+      <div class="flex items-center">
+        <input
+          id="terms"
+          type="checkbox"
+          formControlName="acceptTerms"
+          class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+        >
+        <label for="terms" class="ml-2 block text-sm text-gray-900">
+          I agree to the 
+          <a href="#" class="text-red-600 hover:text-red-500">Terms of Service</a> 
+          and 
+          <a href="#" class="text-red-600 hover:text-red-500">Privacy Policy</a>
+        </label>
+      </div>
+      <div 
+        *ngIf="acceptTermsControl?.invalid && acceptTermsControl?.touched" 
+        class="form-error"
+      >
+        <span *ngIf="acceptTermsControl?.errors?.['required']">You must accept the terms and conditions</span>
+      </div>
+
+      <div *ngIf="error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        {{ error }}
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          [disabled]="registerForm.invalid || isLoading"
+          class="btn btn-primary w-full flex justify-center py-3"
+        >
+          <div *ngIf="isLoading" class="flex items-center">
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Creating account...
+          </div>
+          <span *ngIf="!isLoading">Create Account</span>
+        </button>
+      </div>
+
+      <div class="text-center">
+        <p class="text-sm text-gray-600">
+          Already have an account? 
+          <a routerLink="/auth/login" class="font-medium text-red-600 hover:text-red-500">
+            Sign in instead
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
