@@ -1,4 +1,4 @@
-<header class="bg-white shadow-lg sticky top-0 z-50">
+<header class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
   <nav class="container-custom">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
@@ -14,6 +14,7 @@
       <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center space-x-4 xl:space-x-6">
         <a routerLink="/" routerLinkActive="active-nav-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Home</a>
+        
         
         <!-- Services Dropdown -->
         <div class="relative group">
@@ -146,6 +147,9 @@
         <a routerLink="/trainers" routerLinkActive="active-mobile-nav-link" [routerLinkActiveOptions]="{exact: false}" class="mobile-nav-link ml-4">👨‍💼 Expert Trainers</a>
         
         <div class="border-t border-gray-200 my-2"></div>
+        
+        <!-- Music button removed from mobile menu as it's now globally available -->
+        
         <a routerLink="/memberships" routerLinkActive="active-mobile-nav-link" [routerLinkActiveOptions]="{exact: false}" class="mobile-nav-link">💎 Memberships</a>
         <a routerLink="/gallery" routerLinkActive="active-mobile-nav-link" [routerLinkActiveOptions]="{exact: false}" class="mobile-nav-link">🖼️ Gallery</a>
         <a routerLink="/about" routerLinkActive="active-mobile-nav-link" [routerLinkActiveOptions]="{exact: false}" class="mobile-nav-link">ℹ️ About</a>

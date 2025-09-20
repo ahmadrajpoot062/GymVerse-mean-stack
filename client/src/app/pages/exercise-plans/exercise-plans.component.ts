@@ -103,7 +103,7 @@ export class ExercisePlansComponent implements OnInit {
       image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop',
       trainer: {
         name: 'Sarah Wilson',
-        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face'
+        avatar: 'https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=50&h=50&fit=crop&crop=face'
       },
       exercises: []
     },

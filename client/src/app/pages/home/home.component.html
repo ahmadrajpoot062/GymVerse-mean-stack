@@ -1,31 +1,11 @@
 <div class="min-h-screen">
-  <!-- Background Music Toggle (Fixed Position) -->
-  <div class="fixed top-20 right-4 z-40">
-    <button
-      (click)="toggleMusic()"
-      class="bg-black/70 backdrop-blur-sm text-white p-3 rounded-full shadow-lg hover:bg-black/80 transition-all transform hover:scale-105"
-      [title]="isPlaying ? 'Pause background music' : 'Play background music'">
-      <svg *ngIf="!isPlaying" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293L12 11m3 3l-3-3m-3-3a4.001 4.001 0 017.874.385M15 10h1.586a1 1 0 01.707.293L18 11"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3l6 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h4z"></path>
-      </svg>
-      <svg *ngIf="isPlaying" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18 12h.01M9 12a3 3 0 106 0v6"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3l6 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h4z"></path>
-      </svg>
-    </button>
-    
-    <!-- Music indicator -->
-    <div *ngIf="isPlaying" class="absolute -bottom-2 -right-2">
-      <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-    </div>
-  </div>
+  <!-- Music button removed from home component as it's now in the header -->
 
   <!-- Hero Section -->
-  <section class="bg-gradient-primary text-white py-32 relative overflow-hidden min-h-screen flex items-center">
+  <section class="bg-gradient-primary text-white py-32 relative overflow-hidden h-screen flex items-center -mt-20 pt-20">
     <!-- Background gym image -->
     <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-         style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+         style="background-image: url('/assets/images/hero-bg.jpg');"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-red-900/60 to-black/80"></div>
     
     <div class="container-custom relative z-10">
@@ -74,7 +54,7 @@
         <!-- Right Content - Featured Bodybuilder -->
         <div class="relative animate-fade-in" style="animation-delay: 0.3s;">
           <div class="relative">
-            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            <img src="/assets/images/bodybuilder.jpg" 
                  alt="Professional Bodybuilder" 
                  class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
             <div class="absolute -bottom-6 -right-6 bg-red-600 text-white p-4 rounded-xl shadow-xl">
@@ -85,17 +65,7 @@
         </div>
       </div>
       
-      <!-- Music Control Info -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-        <div class="bg-black/40 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
-          <p class="flex items-center justify-center gap-2 text-sm text-gray-300">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12 6-12 7z"></path>
-            </svg>
-            Background music available - toggle in top right corner
-          </p>
-        </div>
-      </div>
+      <!-- Music Control Info removed as music button is self-explanatory -->
     </div>
   </section>
 
@@ -125,7 +95,7 @@
         <div class="group relative">
           <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 hover:border-red-500/50 transition-all duration-300 transform hover:-translate-y-2">
             <div class="relative mb-6">
-              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+              <img src="/assets/images/bodybuilder.jpg" 
                    alt="Professional Trainer" 
                    class="w-full h-48 object-cover rounded-xl">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
@@ -154,7 +124,7 @@
         <div class="group relative">
           <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 hover:border-red-500/50 transition-all duration-300 transform hover:-translate-y-2">
             <div class="relative mb-6">
-              <img src="https://images.unsplash.com/photo-1583500178690-f7d24c27fa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+              <img src="/assets/images/hero-bg.jpg" 
                    alt="Custom Workout Plan" 
                    class="w-full h-48 object-cover rounded-xl">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
@@ -183,7 +153,7 @@
         <div class="group relative">
           <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 hover:border-red-500/50 transition-all duration-300 transform hover:-translate-y-2">
             <div class="relative mb-6">
-              <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+              <img src="/assets/images/progress-tracking.jpg" 
                    alt="Progress Tracking" 
                    class="w-full h-48 object-cover rounded-xl">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
@@ -255,7 +225,7 @@
         <!-- Transformation 1 -->
         <div class="group bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
           <div class="relative mb-6">
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+            <img src="/assets/images/transformation-1.jpg" 
                  alt="Transformation Result" 
                  class="w-full h-64 object-cover rounded-xl">
             <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
@@ -275,7 +245,7 @@
         <!-- Transformation 2 -->
         <div class="group bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
           <div class="relative mb-6">
-            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+            <img src="/assets/images/bodybuilder.jpg" 
                  alt="Transformation Result" 
                  class="w-full h-64 object-cover rounded-xl">
             <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
@@ -295,7 +265,7 @@
         <!-- Transformation 3 -->
         <div class="group bg-gray-50 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
           <div class="relative mb-6">
-            <img src="https://images.unsplash.com/photo-1583500178690-f7d24c27fa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+            <img src="/assets/images/progress-tracking.jpg" 
                  alt="Transformation Result" 
                  class="w-full h-64 object-cover rounded-xl">
             <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
@@ -331,7 +301,7 @@
   <section class="py-32 relative overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0 bg-cover bg-center" 
-         style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+         style="background-image: url('/assets/images/cta-bg.jpg');"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-red-900/80 to-black/90"></div>
     
     <div class="container-custom text-center relative z-10">

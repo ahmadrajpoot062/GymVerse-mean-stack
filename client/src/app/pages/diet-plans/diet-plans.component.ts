@@ -133,7 +133,7 @@ export class DietPlansComponent implements OnInit {
       image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop',
       nutritionist: {
         name: 'Sarah Green',
-        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face',
+        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=50&h=50&fit=crop&crop=face',
         credentials: 'RD, CDE'
       },
       meals: []

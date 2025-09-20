@@ -131,7 +131,7 @@ export class MembershipsComponent implements OnInit {
     {
       name: 'Sarah Johnson',
       plan: 'Premium',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face',
       review: 'GymVerse has completely transformed my fitness routine. The trainers are amazing and the facilities are top-notch!'
     },
     {

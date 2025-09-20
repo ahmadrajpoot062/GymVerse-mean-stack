@@ -73,7 +73,7 @@ export class TrainersComponent implements OnInit {
       reviewCount: 127,
       hourlyRate: 75,
       bio: 'Certified personal trainer with over 8 years of experience helping clients achieve their fitness goals. Specializes in strength training and sustainable weight loss through proper nutrition and exercise.',
-      profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
+      profilePicture: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop&crop=face',
       certifications: ['NASM-CPT', 'Precision Nutrition', 'TRX Certified'],
       location: 'New York, NY',
       availability: ['Morning', 'Evening'],

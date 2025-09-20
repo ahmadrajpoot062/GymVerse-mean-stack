@@ -113,7 +113,7 @@ export class AboutComponent {
       name: 'Sarah Johnson',
       position: 'CEO & Founder',
       bio: 'Former fitness trainer with 10+ years of experience in the industry.',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face'
+      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face'
     },
     {
       name: 'Mike Chen',

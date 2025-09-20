@@ -103,7 +103,7 @@ export class ProgramsComponent implements OnInit {
       image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       trainer: {
         name: 'Victoria "Shredded" Stone',
-        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face',
+        avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=50&h=50&fit=crop&crop=face',
         specialization: 'Contest Prep Coach'
       },
       features: [
@@ -126,7 +126,7 @@ export class ProgramsComponent implements OnInit {
       price: 99,
       rating: 4.9,
       enrolledCount: 1850,
-      image: 'https://images.unsplash.com/photo-1583500178690-f7d24c27fa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       trainer: {
         name: 'Jake "Iron" Rodriguez',
         avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face',

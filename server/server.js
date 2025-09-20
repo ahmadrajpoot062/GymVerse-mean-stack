@@ -73,6 +73,11 @@ app.use(compression());
 // CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
+    // In development mode, allow all origins for easier testing
+    if (process.env.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+    
     const allowedOrigins = [
       process.env.CLIENT_URL || 'http://localhost:4200',
       'http://localhost:4200',
@@ -92,6 +97,7 @@ const corsOptions = {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // For legacy browser support
 };
 
 app.use(cors(corsOptions));

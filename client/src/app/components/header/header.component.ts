@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -20,11 +20,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: User | null = null;
   showUserMenu = false;
   showMobileMenu = false;
+  isScrolled = false;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) {}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.isScrolled = scrollTop > 10;
+    
+    // Update header class based on scroll position
+    const header = this.elementRef.nativeElement.querySelector('header');
+    if (header) {
+      if (this.isScrolled) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.authService.isAuthenticated$
@@ -38,6 +56,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.currentUser = user;
       });
+      
+    // Check initial scroll position
+    this.onWindowScroll();
   }
 
   ngOnDestroy(): void {
